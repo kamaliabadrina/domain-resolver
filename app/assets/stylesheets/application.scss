@@ -1,0 +1,35 @@
+@import 'bootstrap';
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    color: #495057;
+    font-weight: bold;
+  }
+  
+  pre {
+    font-size: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    overflow-x: auto;
+  }
+  
+  .list-group-item {
+    font-size: 1rem;
+  }
+  
+  form {
+    max-width: 500px;
+    margin: auto;
+  }
+
+  /* Custom margin for buttons */
+.btn {
+    margin-right: 0.5cm;  /* Creates a 0.5cm space */
+  }
+  
+  

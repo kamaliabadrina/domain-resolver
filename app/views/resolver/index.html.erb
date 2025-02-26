@@ -1,0 +1,46 @@
+<div class="container">
+  <h1 class="text-center my-4">Domain Resolver</h1>
+
+  <%= form_with url: resolver_index_path, method: :get, local: true, class: "d-flex flex-column align-items-center" do |form| %>
+    <div class="form-group d-flex justify-content-center">
+      <div class="mr-9">
+        <%= form.label :domain, "Enter Domain Name", class: "form-label" %>
+        <%= form.text_field :domain, value: params[:domain], class: "form-control", placeholder: "e.g., facebook.com" %>
+      </div>
+
+      <div>
+        <%= form.label :query_type, "Select Query Type", class: "form-label" %>
+        <%= form.select :query_type, options_for_select([['A (IPv4 address)', 'A'], ['AAAA (IPv6 address)', 'AAAA'], ['NS (Name Server)', 'NS'], ['MX (Mail Exchange)', 'MX'], ['TXT (Text Record)', 'TXT'], ['CNAME (Canonical Name)', 'CNAME']]), {}, class: "form-control" %>
+      </div>
+    </div>
+
+    <!-- Resolve, Trace, and DNSSEC buttons -->
+    <div class="form-group d-flex justify-content-center mt-3">
+      <%= form.submit "Resolve", class: "btn btn-primary mr-3" %>
+      <%= form.submit "Trace", name: "trace", class: "btn btn-info mr-3" %>
+      <%= form.submit "DNSSEC", name: "dnssec", class: "btn btn-warning" %>
+    </div>
+  <% end %>
+
+  <% if @result %>
+    <h3 class="mt-4">Result for <%= @domain %> (Query: <%= @query_type || 'Trace/DNSSEC' %>):</h3>
+    <pre class="bg-light p-3 rounded"><%= @result %></pre>
+  <% end %>
+
+  <% if @history.present? %>
+    <h3 class="mt-4">Query History:</h3>
+
+    <!-- Clear All button -->
+    <%= form_with url: resolver_clear_all_path, method: :delete, local: true, class: "d-flex justify-content-start mb-3" do |f| %>
+      <%= f.submit "Clear All History", class: "btn btn-danger btn-sm" %>
+    <% end %>
+
+    <ul class="list-group">
+      <% @history.each do |query| %>
+        <li class="list-group-item">
+          <%= link_to "#{query.domain_name} - #{query.query_type}", resolver_index_path(history_id: query.id), class: "text-decoration-none" %> - <%= query.created_at.strftime("%b %d, %Y %H:%M") %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
