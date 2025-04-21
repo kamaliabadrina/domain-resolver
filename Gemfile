@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.1"
-gem 'bootstrap', '~> 5.0'
+gem 'bootstrap', '~> 5.3'
 gem 'sassc-rails'
 gem 'dartsass-rails'
 
